@@ -12,13 +12,9 @@ public class PlayerController : MonoBehaviour
     
     public Transform groundCheck;
     public LayerMask groundLayer;
-    
-    
 
-  
+    public float crouch;
     
-
-
     private Rigidbody2D rd2d;
    
     private void Awake()
@@ -27,27 +23,31 @@ public class PlayerController : MonoBehaviour
         rd2d = gameObject.GetComponent<Rigidbody2D>();
     }
    
-
     private void Update()
+    { 
+    }
+
+    private void FixedUpdate()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
-
+      
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isGrounded)
             {
                 Jump();
-            }
-            
+            }           
         }
+        
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-
+        void Jump()
+        {
+            rd2d.velocity = Vector2.up * jumpForce;
+        }
         MoveCharacter(horizontal, vertical);
         PlayMomentAnimation(horizontal, vertical);
-
-        
 
     }
     private void MoveCharacter(float horizontal, float vertical)
@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
         Vector3 scale = transform.localScale;
 
-
         if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
@@ -75,7 +74,6 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-
         if (vertical > 0)
         {
             animator.SetBool("Jump", true);
@@ -84,11 +82,20 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Jump", false);
         }
+
+        
     }
-    void Jump()
-    {
-        rd2d.velocity = Vector2.up * jumpForce;
-    }
+   
+ 
+    
+    
+  
+    
 
 
+    
 }
+
+
+    
+
