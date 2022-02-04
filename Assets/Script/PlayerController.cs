@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController ScoreController;
     public Animator animator;
     public float speed;
     public float jumpForce;
+    
 
     bool isGrounded;
     
@@ -14,7 +17,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     public float crouch;
-    
+
+    internal void PickUpKey()
+    {
+        Debug.Log("Player has picked up the key");
+        ScoreController.IncreaseScore(10);
+    }
+
     private Rigidbody2D rd2d;
    
     private void Awake()
@@ -22,32 +31,45 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player controller Awake");
         rd2d = gameObject.GetComponent<Rigidbody2D>();
     }
-   
+  
     private void Update()
-    { 
-    }
-
-    private void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.C))
+        {
+            animator.SetBool("Crouch", true);
+        }
+        else
+        {
+            animator.SetBool("Crouch", false);
+        }
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
-      
+        MoveCharacter(horizontal, vertical);
+        PlayMomentAnimation(horizontal, vertical);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isGrounded)
             {
                 Jump();
-            }           
+            }
         }
-        
+
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         void Jump()
         {
             rd2d.velocity = Vector2.up * jumpForce;
         }
-        MoveCharacter(horizontal, vertical);
-        PlayMomentAnimation(horizontal, vertical);
+    }
+
+    private void FixedUpdate()
+    {
+
+
+        
 
     }
     private void MoveCharacter(float horizontal, float vertical)

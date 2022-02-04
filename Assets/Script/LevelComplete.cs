@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelComplete : MonoBehaviour
 {
@@ -9,11 +10,16 @@ public class LevelComplete : MonoBehaviour
     {
         if ( collusion.gameObject.GetComponent<PlayerController>() !=null )
 
-            {
-            Debug.Log("Player finish the game");
+        {
+            Completlevel1();
         }
+
+       
     }
     
-    
+    private void Completlevel1()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     
 }
