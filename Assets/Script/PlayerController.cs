@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +23,19 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player has picked up the key");
         ScoreController.IncreaseScore(10);
+    }
+
+    public void KillPlayer()
+    {
+        animator.SetTrigger("Death");
+        Debug.Log("Player got killed");
+        Invoke("ReloadLevel", 2f);
+       
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private Rigidbody2D rd2d;

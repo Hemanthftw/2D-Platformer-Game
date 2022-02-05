@@ -275,9 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdaca68e6e8a8041aaef3b9b0bebbed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScoreController: {fileID: 0}
   animator: {fileID: 5076052293860965788}
-  speed: 10
-  jumpForce: 23
+  speed: 12
+  jumpForce: 25
   groundCheck: {fileID: 1597218473}
   groundLayer:
     serializedVersion: 2

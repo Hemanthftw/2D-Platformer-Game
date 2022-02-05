@@ -11,6 +11,7 @@ public class LevelComplete : MonoBehaviour
         if ( collusion.gameObject.GetComponent<PlayerController>() !=null )
 
         {
+
             Completlevel1();
         }
 
