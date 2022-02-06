@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController ScoreController;
+    public GameOverController gameOverController;
+
+
     public Animator animator;
     public float speed;
     public float jumpForce;
@@ -29,14 +32,11 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("Death");
         Debug.Log("Player got killed");
-        Invoke("ReloadLevel", 2f);
-       
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
 
-    private void ReloadLevel()
-    {
-        SceneManager.LoadScene(0);
-    }
+   
 
     private Rigidbody2D rd2d;
    
